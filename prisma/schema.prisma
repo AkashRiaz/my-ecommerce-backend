@@ -15,9 +15,118 @@ datasource db {
 
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt 
+  id                 Int        @id @default(autoincrement())
+  email              String     @unique
+  name               String?
+  phone              String?
+  passwordHash       String
+  status             UserStatus @default(ACTIVE)
+  twoFactorEnabled   Boolean    @default(false)
+  lastLoginAt        DateTime?
+  createdAt          DateTime   @default(now())
+  updatedAt          DateTime   @updatedAt
+
+  addresses          Address[]
+  sessions           Session[]
+  roles              UserRole[]
+  // orders             Order[]
+  // tickets            Ticket[]
+  // ticketMessages     TicketMessage[]
+  // notifications      Notification[]
+  // auditLogs          AuditLog[]
+  // inventoryMovements InventoryMovement[]
+  // refundsProcessed   Refund[]    @relation("RefundProcessedBy")
+
+  // wishlist           Wishlist?
+  // cart               Cart?
+  // wallet             Wallet?
 }
+
+model Session {
+  id          Int      @id @default(autoincrement())
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId      Int
+  refreshToken String?  // Store hashed refresh token (optional but safer)
+  ip          String?
+  userAgent   String?
+  createdAt   DateTime @default(now())
+  expiresAt   DateTime  // When the refresh token expires
+
+  @@index([userId])
+}
+
+model Role {
+  id          Int         @id @default(autoincrement())
+  name        String      @unique
+  description String?
+  users       UserRole[]
+  permissions RolePermission[]
+}
+
+model Permission {
+  id      Int    @id @default(autoincrement())
+  module  String
+  action  String
+  roles   RolePermission[]
+  @@unique([module, action])
+}
+
+model UserRole {
+  id     Int  @id @default(autoincrement())
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int
+  role   Role @relation(fields: [roleId], references: [id])
+  roleId Int
+
+  @@unique([userId, roleId])
+  @@index([roleId])
+}
+
+
+model RolePermission {
+  id           Int        @id @default(autoincrement())
+  role         Role       @relation(fields: [roleId], references: [id])
+  roleId       Int
+  permission   Permission @relation(fields: [permissionId], references: [id])
+  permissionId Int
+
+  @@unique([roleId, permissionId])
+  @@index([permissionId])
+}
+
+
+
+  model Address {
+  id                Int      @id @default(autoincrement())
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            Int
+  label             String?
+  line1             String
+  line2             String?
+  city              String
+  state             String?
+  postalCode        String
+  country           String
+  isDefaultShipping Boolean  @default(false)
+  isDefaultBilling  Boolean  @default(false)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // orders Order[]
+}
+
+
+
+
+
+
+
+
+
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+}
+

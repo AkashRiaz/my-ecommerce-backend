@@ -9,4 +9,12 @@ export default {
   env: process.env.NODE_ENV,
   port: process.env.PORT,
   database_url: process.env.DATABASE_URL,
+  bcrypt_salt_rounds: process.env.BCRYPT_SALT_ROUNDS || '10',
+  jwt: {
+    secret: process.env.JWT_SECRET,
+    expires_in: process.env.JWT_EXPIRES_IN,
+    refresh_secret: process.env.REFRESH_JWT_SECRET,
+    refresh_expires_in: process.env.REFRESH_JWT_EXPIRES_IN,
+
+  },
 };
