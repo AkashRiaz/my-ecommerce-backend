@@ -5,6 +5,7 @@ const getAllUserProfiles = async () => {
   const result = await prisma.user.findMany({
     include: {
       sessions: true,
+      addresses: true,
     },
   });
   return result;
@@ -15,10 +16,10 @@ const getUserProfile = async (userId: number) => {
     where: { id: userId },
     include: {
       sessions: true,
+      addresses: true,
     },
   });
 
-  console.log('Fetched User Profile:', result);
   return result;
 };
 
