@@ -6,6 +6,11 @@ const getAllUserProfiles = async () => {
     include: {
       sessions: true,
       addresses: true,
+      roles: {
+        include: {
+          role: true,
+        }
+      }
     },
   });
   return result;
@@ -17,6 +22,11 @@ const getUserProfile = async (userId: number) => {
     include: {
       sessions: true,
       addresses: true,
+      roles: {
+        include: {
+          role: true,
+        }
+      }
     },
   });
 

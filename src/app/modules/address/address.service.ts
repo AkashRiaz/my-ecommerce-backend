@@ -1,7 +1,7 @@
 import prisma from '../../../shared/prisma';
 import { IAddress } from './address.interface';
 import ApiError from '../../../errors/ApiError';
-import httpUrl from 'http-status';
+import httpStatus from 'http-status';
 
 const insertIntoDB = async (userId: number, payload: IAddress) => {
   const result = await prisma.address.create({
@@ -27,50 +27,84 @@ const getAllUserAddress = async () => {
   return result;
 };
 
-const getSingleUserAddress = async (addressId: number, userId: number) => {
-  const result = await prisma.address.findUnique({
-    where: { id: addressId, userId: userId },
-    include: {
-      user: true,
-    },
+const getSingleUserAddress = async (
+  addressId: number,
+  userId: number,
+  roles: string[],
+) => {
+  const address = await prisma.address.findUnique({
+    where: { id: addressId },
+    include: { user: true },
   });
 
-  if (!result) {
-    throw new ApiError(httpUrl.NOT_FOUND, 'Address not found');
+  if (!address) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Address not found');
   }
 
-  return result;
+  // Admins can see anyone's address
+  if (roles.includes('ADMIN') || roles.includes('SUPER_ADMIN')) {
+    return address;
+  }
+
+  // Customers → only their own
+  if (address.userId !== userId) {
+    throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
+  }
+
+  return address;
 };
 
 const updateUserAddress = async (
   userId: number,
   addressId: number,
+  roles: string[],
   payload: IAddress,
 ) => {
-  const result = await prisma.address.update({
-    where: { id: addressId, userId: userId },
+  const address = await prisma.address.findUnique({
+    where: { id: addressId },
+  });
+
+  if (!address) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Address not found');
+  }
+
+  // Admin & SuperAdmin can update any address
+  if (!roles.includes('ADMIN') && !roles.includes('SUPER_ADMIN')) {
+    if (address.userId !== userId) {
+      throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
+    }
+  }
+
+  return await prisma.address.update({
+    where: { id: addressId },
     data: payload,
-    include: {
-      user: {
-        include: {
-          sessions: true,
-        },
-      },
-    },
   });
-  return result;
 };
 
-const deleteUserAddress = async (addressId: number, userId: number) => {
-  const result = await prisma.address.delete({
-    where: { id: addressId, userId: userId },
-    include: {
-      user: true,
-    },
+const deleteUserAddress = async (
+  addressId: number,
+  userId: number,
+  roles: string[],
+) => {
+  const address = await prisma.address.findUnique({
+    where: { id: addressId },
   });
-  return result;
-};
 
+  if (!address) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Address not found');
+  }
+
+  // If customer → deny if not owner
+  if (!roles.includes('ADMIN') && !roles.includes('SUPER_ADMIN')) {
+    if (address.userId !== userId) {
+      throw new ApiError(httpStatus.FORBIDDEN, 'Forbidden');
+    }
+  }
+
+  return await prisma.address.delete({
+    where: { id: addressId },
+  });
+};
 export const AddressService = {
   insertIntoDB,
   getAllUserAddress,

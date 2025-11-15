@@ -7,6 +7,7 @@ import { comparePassword, hashPassword } from './auth.utils';
 import { jwtHelpers } from '../../../helpers/jwtHelpers';
 import config from '../../../config';
 import { Secret } from 'jsonwebtoken';
+import { UserRole } from '../../../enums/user';
 
 const signupUser = async (payload: IUser) => {
   const { email, password, name, phone } = payload;
@@ -24,8 +25,7 @@ const signupUser = async (payload: IUser) => {
 
   const passwordHash = await hashPassword(password);
 
-
-  const result = await prisma.user.create({
+  const user = await prisma.user.create({
     data: {
       email,
       passwordHash,
@@ -34,7 +34,20 @@ const signupUser = async (payload: IUser) => {
     },
   });
 
-  return result;
+  // 2️⃣ Find role CUSTOMER by enum
+  const customerRole = await prisma.role.findUnique({
+    where: { name: UserRole.CUSTOMER },
+  });
+
+  // 3️⃣ Assign role
+  await prisma.userRole.create({
+    data: {
+      userId: user?.id,
+      roleId: customerRole!.id,
+    },
+  });
+
+  return user;
 };
 
 const loginUser = async (payload: ILoginUser) => {
@@ -42,12 +55,20 @@ const loginUser = async (payload: ILoginUser) => {
 
   const isExist = await prisma.user.findUnique({
     where: { email },
+    include: {
+      roles: {
+        include: {
+          role: true,
+        },
+      },
+    },
   });
 
   if (!isExist) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User does not exist');
   }
 
+  const roles = isExist.roles.map(r => r.role.name);
   if (
     isExist.passwordHash &&
     !(await comparePassword(password, isExist.passwordHash))
@@ -55,9 +76,12 @@ const loginUser = async (payload: ILoginUser) => {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Password is incorrect');
   }
 
-  const { id: userId, passwordHash } = isExist;
+  const { id: userId } = isExist;
   const accessToken = jwtHelpers.createToken(
-    { userId },
+    {
+      userId,
+      roles: roles, // ARRAY OF ROLES
+    },
     config.jwt.secret as Secret,
     config.jwt.expires_in as StringValue,
   );
@@ -74,7 +98,7 @@ const loginUser = async (payload: ILoginUser) => {
     data: {
       userId,
       refreshToken: hashedRefreshToken,
-      ip: '', 
+      ip: '',
       userAgent: '', // <-- optional (or req.headers['user-agent'])
       expiresAt: new Date(Date.now() + 7 * 24 * 3600 * 1000), // 7 days
     },
