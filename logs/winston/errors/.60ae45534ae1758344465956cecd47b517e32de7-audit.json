@@ -1,0 +1,55 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\errors\\.60ae45534ae1758344465956cecd47b517e32de7-audit.json",
+    "files": [
+        {
+            "date": 1763354089778,
+            "name": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\errors\\phu-2025-17-11-10-error.log",
+            "hash": "908f3ae9fe2b759e7ba7cd6b4a3314352a2b0b530960812d577d917b088ce2c8"
+        },
+        {
+            "date": 1763362277329,
+            "name": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\errors\\phu-2025-17-11-12-error.log",
+            "hash": "658bcc968f62e54e60d81f1567b0f5dfb4aaca31f333c32b712c85875cee2073"
+        },
+        {
+            "date": 1763363087857,
+            "name": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\errors\\phu-2025-17-11-13-error.log",
+            "hash": "0e547ccf18d9ef6d709fd158994cfe7cd9e2bce3fa1cfcc9f2fc315847fcef2c"
+        },
+        {
+            "date": 1763397268661,
+            "name": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\errors\\phu-2025-17-11-22-error.log",
+            "hash": "788342e8bb578d3e2823484ebb72c91bf8efdaa0ba6e2640d86c455687d789bc"
+        },
+        {
+            "date": 1763400783925,
+            "name": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\errors\\phu-2025-17-11-23-error.log",
+            "hash": "2212700c738b5c73c39d1f90f3153c2ed5c4c34ab8f06cd43c5f49e2560c0454"
+        },
+        {
+            "date": 1763402550350,
+            "name": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\errors\\phu-2025-18-11-00-error.log",
+            "hash": "bc3d908a1c56c3bd409c1ca9d96c5c36535c27c1704484ae985c433447844c14"
+        },
+        {
+            "date": 1763451327964,
+            "name": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\errors\\phu-2025-18-11-13-error.log",
+            "hash": "66c179ad6f21a82b2ba6969737226fffae0ef83cdd6f896b63be42e0d35e8cc9"
+        },
+        {
+            "date": 1763489724784,
+            "name": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\errors\\phu-2025-19-11-00-error.log",
+            "hash": "a66f65d6e771f13de72f9fd841da0230959e33aaf412f6646840b737e4907db6"
+        },
+        {
+            "date": 1763492441291,
+            "name": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\errors\\phu-2025-19-11-01-error.log",
+            "hash": "6299cd330c81d4a633a2a888350486208a24f4389c4bd7211bfec579c0b37cb3"
+        }
+    ],
+    "hashType": "sha256"
+}

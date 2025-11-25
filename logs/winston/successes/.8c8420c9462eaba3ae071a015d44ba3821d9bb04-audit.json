@@ -1,0 +1,55 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\successes\\.8c8420c9462eaba3ae071a015d44ba3821d9bb04-audit.json",
+    "files": [
+        {
+            "date": 1763354089771,
+            "name": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\successes\\phu-2025-17-11-10-success.log",
+            "hash": "64b9d5f0ae44f1fef4021c9d174f7e31536e84b62e3e0763622de11111548644"
+        },
+        {
+            "date": 1763362277302,
+            "name": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\successes\\phu-2025-17-11-12-success.log",
+            "hash": "ad332c980b98f594018c0a9c90b8e36d40442a8d2c859c47bca0e4aeb7cf5bb3"
+        },
+        {
+            "date": 1763363087819,
+            "name": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\successes\\phu-2025-17-11-13-success.log",
+            "hash": "89cdfacddb7a79c2c976aa09992f132dfb4f5058e88478bcbd12941b9f88da79"
+        },
+        {
+            "date": 1763397268654,
+            "name": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\successes\\phu-2025-17-11-22-success.log",
+            "hash": "b1723b41aa7d11b04fdc71fdb6b109d5fb59f2b6096aaa6d85c41d75dc9b1579"
+        },
+        {
+            "date": 1763400783895,
+            "name": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\successes\\phu-2025-17-11-23-success.log",
+            "hash": "78ea387ee1d6e1f9803cf4a1e69c19f7b11436e9be915ceb8b6c03460b803259"
+        },
+        {
+            "date": 1763402550336,
+            "name": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\successes\\phu-2025-18-11-00-success.log",
+            "hash": "838129c75c19264e35f61146c525e48b5eddaa9a06b60bf5c66931c09e4ccc44"
+        },
+        {
+            "date": 1763451327941,
+            "name": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\successes\\phu-2025-18-11-13-success.log",
+            "hash": "6576c92cc69e94af075c4389ecf65e9dac9a825c400b91127c9342da6e346e1f"
+        },
+        {
+            "date": 1763489724765,
+            "name": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\successes\\phu-2025-19-11-00-success.log",
+            "hash": "c7741a42895c956ef9655fc910f202e7ae7bf1b1e0a3f2e72190f511c615a9c8"
+        },
+        {
+            "date": 1763492441262,
+            "name": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\successes\\phu-2025-19-11-01-success.log",
+            "hash": "9fbc02c4b3fcff5498fd5442d79b16f72966ea47cf8c137b95191c5f3c6a01a5"
+        }
+    ],
+    "hashType": "sha256"
+}

@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post(
   '/address',
-  auth(UserRole.SUPER_ADMIN, UserRole.ADMIN),
+  auth(UserRole.SUPER_ADMIN, UserRole.ADMIN, UserRole.CUSTOMER),
   AddressController.insertIntoDB,
 );
 router.get(

@@ -32,6 +32,13 @@ const signupUser = async (payload: IUser) => {
       name,
       phone,
     },
+    include:{
+      roles:{
+        include:{
+          role:true
+        }
+      }
+    }
   });
 
   // 2️⃣ Find role CUSTOMER by enum
@@ -147,7 +154,6 @@ const refreshToken = async (token: string): Promise<IRefreshTokenResponse> => {
 
   return { accessToken: newAccessToken };
 
-  console.log(verifiedToken, 'verified token');
 };
 
 export const AuthService = {
