@@ -6,6 +6,7 @@ import { CategoryRouter } from '../modules/category/category.route';
 import { ProductRouter } from '../modules/product/product.route';
 import { InventoryRoute } from '../modules/inventory/inventory.route';
 import { CartRoute } from '../modules/cart/cart.route';
+import { WishlistRoute } from '../modules/wishlist/wishlist.route';
 const router = express.Router();
 
 const moduleRoutes = [
@@ -37,6 +38,10 @@ const moduleRoutes = [
     path: '/cart',
     route: CartRoute,
   },
+  {
+    path: '/wishlist',
+    route: WishlistRoute
+  }
 ];
 
 moduleRoutes.forEach(route => router.use(route.path, route.route));

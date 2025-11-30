@@ -37,7 +37,7 @@ model User {
   inventoryMovements InventoryMovement[]
   // refundsProcessed   Refund[]    @relation("RefundProcessedBy")
 
-  // wishlist           Wishlist?
+  wishlist           Wishlist?
   cart               Cart?
   // wallet             Wallet?
 }
@@ -143,6 +143,8 @@ model Product {
   images          ProductImage[]
   variants        ProductVariant[]
   attributes      ProductAttribute[]
+  wishlistItems  WishlistItem[]
+
 
   metaTitle       String?
   metaDescription String?
@@ -246,6 +248,26 @@ model CartItem {
   @@unique([cartId, variantId])
   @@index([variantId])
 }
+
+model Wishlist {
+  id        Int       @id @default(autoincrement())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    Int       @unique
+  createdAt DateTime  @default(now())
+  items     WishlistItem[]
+}
+
+model WishlistItem {
+  id         Int      @id @default(autoincrement())
+  wishlist   Wishlist @relation(fields: [wishlistId], references: [id], onDelete: Cascade)
+  wishlistId Int
+  product    Product  @relation(fields: [productId], references: [id])
+  productId  Int
+  addedAt    DateTime @default(now())
+
+  @@unique([wishlistId, productId])
+}
+
 
 
 

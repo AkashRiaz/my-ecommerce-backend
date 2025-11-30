@@ -104,6 +104,11 @@
             "date": 1764488337447,
             "name": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\errors\\phu-2025-30-11-13-error.log",
             "hash": "639bdc88f5b09619bd1d2318b0538710d785d05bb15e3a8d9415ffd90b7fc79d"
+        },
+        {
+            "date": 1764498021280,
+            "name": "E:\\My-own-project\\my-ecommerce-backend\\logs\\winston\\errors\\phu-2025-30-11-16-error.log",
+            "hash": "4b5bc751039dcc8a71f68682ce4a7e467dd69c6f8bc771e92c55dc9c3d1690a0"
         }
     ],
     "hashType": "sha256"
