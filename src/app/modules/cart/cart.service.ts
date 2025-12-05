@@ -2,18 +2,7 @@ import httpStatus from 'http-status';
 import ApiError from '../../../errors/ApiError';
 import prisma from '../../../shared/prisma';
 
-const getOrCreateCart = async (userId: number) => {
-  const cart = await prisma.cart.upsert({
-    where: { userId },
-    update: {},
-    create: { userId },
-  });
-
-  return cart;
-};
-
 const getCart = async (userId: number) => {
-  await getOrCreateCart(userId);
   const cart = await prisma.cart.findUnique({
     where: { userId },
     include: {
@@ -176,12 +165,14 @@ const removeItem = async (userId: number, cartItemId: number) => {
 };
 
 const clearCart = async (userId: number) => {
-  await prisma.cart.deleteMany({
-    where: { userId },
-  });
+  const cart = await prisma.cart.findUnique({ where: { userId } });
+  if (!cart) return await getCart(userId);
+
+  await prisma.cartItem.deleteMany({ where: { cartId: cart.id } });
 
   return await getCart(userId);
 };
+
 
 export const CartService = {
   getCart,

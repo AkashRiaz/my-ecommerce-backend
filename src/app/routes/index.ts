@@ -7,6 +7,8 @@ import { ProductRouter } from '../modules/product/product.route';
 import { InventoryRoute } from '../modules/inventory/inventory.route';
 import { CartRoute } from '../modules/cart/cart.route';
 import { WishlistRoute } from '../modules/wishlist/wishlist.route';
+import { OrderRoute } from '../modules/order/order.route';
+import { PaymentRoute } from '../modules/payment/payment.route';
 const router = express.Router();
 
 const moduleRoutes = [
@@ -40,8 +42,16 @@ const moduleRoutes = [
   },
   {
     path: '/wishlist',
-    route: WishlistRoute
-  }
+    route: WishlistRoute,
+  },
+  {
+    path: '/orders',
+    route: OrderRoute,
+  },
+  {
+    path: '/payments',
+    route: PaymentRoute,
+  },
 ];
 
 moduleRoutes.forEach(route => router.use(route.path, route.route));
